@@ -286,7 +286,7 @@ def verifycode(request):
 	for i in range(4):
 		rand_str += str1[random.randrange(0,len(str1))]
 	# 构造字体对象
-	font = ImageFont.truetype('/usr/share/fonts/truetype/freefont/FreeMono.ttf', 25)
+	font = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf', 25)
 	# 构造字体颜色
 	fontcolor = (255, random.randrange(0,255), random.randrange(0,255))
 	# 绘制4个字

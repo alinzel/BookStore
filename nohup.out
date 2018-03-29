@@ -64,3 +64,215 @@ cart_11
 ['3']
 3
 张
+[2018-03-29 13:36:46 +0800] [11191] [INFO] Starting gunicorn 19.7.1
+[2018-03-29 13:36:46 +0800] [11191] [INFO] Listening at: http://0.0.0.0:8000 (11191)
+[2018-03-29 13:36:46 +0800] [11191] [INFO] Using worker: sync
+[2018-03-29 13:36:46 +0800] [11194] [INFO] Booting worker with pid: 11194
+[2018-03-29 13:36:46 +0800] [11195] [INFO] Booting worker with pid: 11195
+[2018-03-29 13:36:46 +0800] [11198] [INFO] Booting worker with pid: 11198
+[2018-03-29 05:36:47 +0000] [11195] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/root/Envs/bookstore/lib/python3.5/site-packages/gunicorn/arbiter.py", line 578, in spawn_worker
+    worker.init_process()
+  File "/root/Envs/bookstore/lib/python3.5/site-packages/gunicorn/workers/base.py", line 126, in init_process
+    self.load_wsgi()
+  File "/root/Envs/bookstore/lib/python3.5/site-packages/gunicorn/workers/base.py", line 135, in load_wsgi
+    self.wsgi = self.app.wsgi()
+  File "/root/Envs/bookstore/lib/python3.5/site-packages/gunicorn/app/base.py", line 67, in wsgi
+    self.callable = self.load()
+  File "/root/Envs/bookstore/lib/python3.5/site-packages/gunicorn/app/wsgiapp.py", line 65, in load
+    return self.load_wsgiapp()
+  File "/root/Envs/bookstore/lib/python3.5/site-packages/gunicorn/app/wsgiapp.py", line 52, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/root/Envs/bookstore/lib/python3.5/site-packages/gunicorn/util.py", line 352, in import_app
+    __import__(module)
+  File "/root/Zwl/BookStore/bookstore/wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+  File "/root/Envs/bookstore/lib/python3.5/site-packages/django/core/wsgi.py", line 14, in get_wsgi_application
+    django.setup()
+  File "/root/Envs/bookstore/lib/python3.5/site-packages/django/__init__.py", line 18, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "/root/Envs/bookstore/lib/python3.5/site-packages/django/apps/registry.py", line 85, in populate
+    app_config = AppConfig.create(entry)
+  File "/root/Envs/bookstore/lib/python3.5/site-packages/django/apps/config.py", line 86, in create
+    module = import_module(entry)
+  File "/root/Envs/bookstore/lib/python3.5/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+ImportError: No module named 'suit'
+[2018-03-29 05:36:47 +0000] [11195] [INFO] Worker exiting (pid: 11195)
+[2018-03-29 05:36:47 +0000] [11194] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/root/Envs/bookstore/lib/python3.5/site-packages/gunicorn/arbiter.py", line 578, in spawn_worker
+    worker.init_process()
+  File "/root/Envs/bookstore/lib/python3.5/site-packages/gunicorn/workers/base.py", line 126, in init_process
+    self.load_wsgi()
+  File "/root/Envs/bookstore/lib/python3.5/site-packages/gunicorn/workers/base.py", line 135, in load_wsgi
+    self.wsgi = self.app.wsgi()
+  File "/root/Envs/bookstore/lib/python3.5/site-packages/gunicorn/app/base.py", line 67, in wsgi
+    self.callable = self.load()
+  File "/root/Envs/bookstore/lib/python3.5/site-packages/gunicorn/app/wsgiapp.py", line 65, in load
+    return self.load_wsgiapp()
+  File "/root/Envs/bookstore/lib/python3.5/site-packages/gunicorn/app/wsgiapp.py", line 52, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/root/Envs/bookstore/lib/python3.5/site-packages/gunicorn/util.py", line 352, in import_app
+    __import__(module)
+  File "/root/Zwl/BookStore/bookstore/wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+  File "/root/Envs/bookstore/lib/python3.5/site-packages/django/core/wsgi.py", line 14, in get_wsgi_application
+    django.setup()
+  File "/root/Envs/bookstore/lib/python3.5/site-packages/django/__init__.py", line 18, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "/root/Envs/bookstore/lib/python3.5/site-packages/django/apps/registry.py", line 85, in populate
+    app_config = AppConfig.create(entry)
+  File "/root/Envs/bookstore/lib/python3.5/site-packages/django/apps/config.py", line 86, in create
+    module = import_module(entry)
+  File "/root/Envs/bookstore/lib/python3.5/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+ImportError: No module named 'suit'
+[2018-03-29 05:36:47 +0000] [11194] [INFO] Worker exiting (pid: 11194)
+[2018-03-29 05:36:48 +0000] [11198] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/root/Envs/bookstore/lib/python3.5/site-packages/gunicorn/arbiter.py", line 578, in spawn_worker
+    worker.init_process()
+  File "/root/Envs/bookstore/lib/python3.5/site-packages/gunicorn/workers/base.py", line 126, in init_process
+    self.load_wsgi()
+  File "/root/Envs/bookstore/lib/python3.5/site-packages/gunicorn/workers/base.py", line 135, in load_wsgi
+    self.wsgi = self.app.wsgi()
+  File "/root/Envs/bookstore/lib/python3.5/site-packages/gunicorn/app/base.py", line 67, in wsgi
+    self.callable = self.load()
+  File "/root/Envs/bookstore/lib/python3.5/site-packages/gunicorn/app/wsgiapp.py", line 65, in load
+    return self.load_wsgiapp()
+  File "/root/Envs/bookstore/lib/python3.5/site-packages/gunicorn/app/wsgiapp.py", line 52, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/root/Envs/bookstore/lib/python3.5/site-packages/gunicorn/util.py", line 352, in import_app
+    __import__(module)
+  File "/root/Zwl/BookStore/bookstore/wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+  File "/root/Envs/bookstore/lib/python3.5/site-packages/django/core/wsgi.py", line 14, in get_wsgi_application
+    django.setup()
+  File "/root/Envs/bookstore/lib/python3.5/site-packages/django/__init__.py", line 18, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "/root/Envs/bookstore/lib/python3.5/site-packages/django/apps/registry.py", line 85, in populate
+    app_config = AppConfig.create(entry)
+  File "/root/Envs/bookstore/lib/python3.5/site-packages/django/apps/config.py", line 86, in create
+    module = import_module(entry)
+  File "/root/Envs/bookstore/lib/python3.5/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+ImportError: No module named 'suit'
+[2018-03-29 05:36:48 +0000] [11198] [INFO] Worker exiting (pid: 11198)
+Traceback (most recent call last):
+  File "/root/Envs/bookstore/lib/python3.5/site-packages/gunicorn/arbiter.py", line 209, in run
+    self.sleep()
+  File "/root/Envs/bookstore/lib/python3.5/site-packages/gunicorn/arbiter.py", line 359, in sleep
+    ready = select.select([self.PIPE[0]], [], [], 1.0)
+  File "/root/Envs/bookstore/lib/python3.5/site-packages/gunicorn/arbiter.py", line 244, in handle_chld
+    self.reap_workers()
+  File "/root/Envs/bookstore/lib/python3.5/site-packages/gunicorn/arbiter.py", line 524, in reap_workers
+    raise HaltServer(reason, self.WORKER_BOOT_ERROR)
+gunicorn.errors.HaltServer: <HaltServer 'Worker failed to boot.' 3>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/Envs/bookstore/bin/gunicorn", line 11, in <module>
+    sys.exit(run())
+  File "/root/Envs/bookstore/lib/python3.5/site-packages/gunicorn/app/wsgiapp.py", line 74, in run
+    WSGIApplication("%(prog)s [OPTIONS] [APP_MODULE]").run()
+  File "/root/Envs/bookstore/lib/python3.5/site-packages/gunicorn/app/base.py", line 203, in run
+    super(Application, self).run()
+  File "/root/Envs/bookstore/lib/python3.5/site-packages/gunicorn/app/base.py", line 72, in run
+    Arbiter(self).run()
+  File "/root/Envs/bookstore/lib/python3.5/site-packages/gunicorn/arbiter.py", line 231, in run
+    self.halt(reason=inst.reason, exit_status=inst.exit_status)
+  File "/root/Envs/bookstore/lib/python3.5/site-packages/gunicorn/arbiter.py", line 344, in halt
+    self.stop()
+  File "/root/Envs/bookstore/lib/python3.5/site-packages/gunicorn/arbiter.py", line 393, in stop
+    time.sleep(0.1)
+  File "/root/Envs/bookstore/lib/python3.5/site-packages/gunicorn/arbiter.py", line 244, in handle_chld
+    self.reap_workers()
+  File "/root/Envs/bookstore/lib/python3.5/site-packages/gunicorn/arbiter.py", line 524, in reap_workers
+    raise HaltServer(reason, self.WORKER_BOOT_ERROR)
+gunicorn.errors.HaltServer: <HaltServer 'Worker failed to boot.' 3>
+[29/Mar/2018 05:50:44]"GET / HTTP/1.1" 404 2663
+[29/Mar/2018 05:50:48]"GET /index HTTP/1.1" 404 2678
+[29/Mar/2018 05:50:53]"GET /books/index HTTP/1.1" 301 0
+[29/Mar/2018 05:50:53]"GET /books/index/ HTTP/1.1" 200 14850
+[29/Mar/2018 05:50:53]"GET /static/css/reset.css HTTP/1.1" 200 664
+[29/Mar/2018 05:50:53]"GET /static/css/main.css HTTP/1.1" 200 22951
+[29/Mar/2018 05:50:53]"GET /static/js/jquery-ui.min.js HTTP/1.1" 200 70994
+[29/Mar/2018 05:50:53]"GET /static/js/jquery.cookie.js HTTP/1.1" 200 3121
+[29/Mar/2018 05:50:53]"GET /static/js/slide.js HTTP/1.1" 200 2473
+[29/Mar/2018 05:50:53]"GET /static/js/register.js HTTP/1.1" 200 2296
+[29/Mar/2018 05:50:53]"GET /static/js/jquery-1.12.4.min.js HTTP/1.1" 200 97163
+[29/Mar/2018 05:50:53]"GET /static/images/logo.png HTTP/1.1" 200 15796
+[29/Mar/2018 05:50:54]"GET /static/books_image/book001.jpg HTTP/1.1" 200 9350
+[29/Mar/2018 05:50:54]"GET /static/books_image/book004.jpg HTTP/1.1" 200 8758
+[29/Mar/2018 05:50:54]"GET /static/books_image/book002.jpg HTTP/1.1" 200 7573
+[29/Mar/2018 05:50:54]"GET /static/images/icons.png HTTP/1.1" 200 5931
+[29/Mar/2018 05:50:54]"GET /static/images/slide.jpg HTTP/1.1" 200 78511
+[29/Mar/2018 05:50:54]"GET /static/images/banner01.jpg HTTP/1.1" 200 39415
+[29/Mar/2018 05:50:55]"GET /static/books_image/book003.jpg HTTP/1.1" 200 8328
+[29/Mar/2018 05:50:55]"GET /cart/count/ HTTP/1.1" 200 67
+[29/Mar/2018 05:50:55]"GET /static/images/slide03.jpg HTTP/1.1" 200 49384
+[29/Mar/2018 05:50:57]"GET /static/images/adv01.jpg HTTP/1.1" 200 42152
+[29/Mar/2018 05:50:57]"GET /static/images/banner02.jpg HTTP/1.1" 200 14224
+[29/Mar/2018 05:50:59]"GET /static/books_image/book008.jpg HTTP/1.1" 200 8746
+[29/Mar/2018 05:50:59]"GET /static/books_image/book005.jpg HTTP/1.1" 200 9550
+[29/Mar/2018 05:50:59]"GET /static/books_image/book005_RZStri9.jpg HTTP/1.1" 200 9550
+[29/Mar/2018 05:50:59]"GET /static/images/slide04.jpg HTTP/1.1" 200 181109
+[29/Mar/2018 05:50:59]"GET /static/books_image/book007.jpg HTTP/1.1" 200 7203
+[29/Mar/2018 05:51:00]"GET /static/images/banner03.jpg HTTP/1.1" 200 5569
+[29/Mar/2018 05:51:00]"GET /static/images/banner04.jpg HTTP/1.1" 200 14876
+[29/Mar/2018 05:51:02]"GET /static/images/adv02.jpg HTTP/1.1" 200 300169
+[29/Mar/2018 05:51:02]"GET /static/images/banner05.jpg HTTP/1.1" 200 17903
+[29/Mar/2018 05:51:03]"GET /static/images/banner06.jpg HTTP/1.1" 200 10206
+[29/Mar/2018 05:51:04]"GET /static/images/slide02.jpg HTTP/1.1" 200 447014
+[29/Mar/2018 05:51:24]"GET /books/index HTTP/1.1" 301 0
+[29/Mar/2018 05:51:25]"GET /books/index HTTP/1.1" 301 0
+[29/Mar/2018 05:51:25]"GET /books/index/ HTTP/1.1" 200 14850
+[29/Mar/2018 05:51:46]"GET /books/index HTTP/1.1" 301 0
+[29/Mar/2018 05:51:46]"GET /books/index/ HTTP/1.1" 200 14850
+[29/Mar/2018 05:51:46]"GET /static/css/reset.css HTTP/1.1" 200 664
+[29/Mar/2018 05:51:46]"GET /static/css/main.css HTTP/1.1" 200 22951
+[29/Mar/2018 05:51:46]"GET /static/js/jquery-ui.min.js HTTP/1.1" 200 70994
+[29/Mar/2018 05:51:46]"GET /static/js/jquery-1.12.4.min.js HTTP/1.1" 200 97163
+[29/Mar/2018 05:51:46]"GET /static/js/jquery.cookie.js HTTP/1.1" 200 3121
+[29/Mar/2018 05:51:46]"GET /static/js/slide.js HTTP/1.1" 200 2473
+[29/Mar/2018 05:51:46]"GET /static/js/register.js HTTP/1.1" 200 2296
+[29/Mar/2018 05:51:47]"GET /cart/count/ HTTP/1.1" 200 67
+[29/Mar/2018 05:52:32]"GET /user/login/ HTTP/1.1" 200 5356
+[29/Mar/2018 05:52:32]"GET /static/images/login_banner.png HTTP/1.1" 200 26039
+[29/Mar/2018 05:52:32]"GET /user/verifycode/ HTTP/1.1" 500 79897
+[29/Mar/2018 05:52:32]"GET /static/images/icons02.png HTTP/1.1" 200 2071
+[29/Mar/2018 05:52:37]"GET /user/verifycode/? HTTP/1.1" 500 79896
+[29/Mar/2018 05:52:39]"GET /user/verifycode/?? HTTP/1.1" 500 80237
+[29/Mar/2018 05:52:41]"GET /user/verifycode/??? HTTP/1.1" 500 80245
+[29/Mar/2018 05:52:42]"GET /user/verifycode/???? HTTP/1.1" 500 80253
+[29/Mar/2018 05:52:59]"GET / HTTP/1.1" 404 2663
+Performing system checks...
+
+System check identified no issues (0 silenced).
+March 29, 2018 - 05:50:38
+Django version 1.8.2, using settings 'bookstore.settings'
+Starting development server at http://0.0.0.0:8000/
+Quit the server with CONTROL-C.
+[29/Mar/2018 05:55:55]"GET /user/login/ HTTP/1.1" 200 5356
+[29/Mar/2018 05:55:55]"GET /static/css/main.css HTTP/1.1" 304 0
+[29/Mar/2018 05:55:55]"GET /static/js/jquery-ui.min.js HTTP/1.1" 304 0
+[29/Mar/2018 05:55:55]"GET /static/js/jquery-1.12.4.min.js HTTP/1.1" 304 0
+[29/Mar/2018 05:55:55]"GET /static/css/reset.css HTTP/1.1" 304 0
+[29/Mar/2018 05:55:55]"GET /static/js/jquery.cookie.js HTTP/1.1" 304 0
+[29/Mar/2018 05:55:55]"GET /static/js/slide.js HTTP/1.1" 304 0
+[29/Mar/2018 05:55:56]"GET /static/js/register.js HTTP/1.1" 304 0
+[29/Mar/2018 05:55:56]"GET /static/images/logo.png HTTP/1.1" 304 0
+[29/Mar/2018 05:55:56]"GET /user/verifycode/ HTTP/1.1" 200 1544
+[29/Mar/2018 05:55:57]"GET /static/images/login_banner.png HTTP/1.1" 304 0
+[29/Mar/2018 05:55:57]"GET /static/images/icons02.png HTTP/1.1" 304 0
+[29/Mar/2018 05:56:14]"GET /user/verifycode/? HTTP/1.1" 200 1668
+Performing system checks...
+
+System check identified no issues (0 silenced).
+March 29, 2018 - 05:55:49
+Django version 1.8.2, using settings 'bookstore.settings'
+Starting development server at http://0.0.0.0:8000/
+Quit the server with CONTROL-C.

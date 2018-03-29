@@ -86,8 +86,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'bookstore',
-        'USER': 'atguigu',
-        'PASSWORD': '123456',
+        'USER': 'root',
+        'PASSWORD': 'qiulei1314',
         'HOST': '127.0.0.1',
         'PORT': 3306
     }
@@ -177,4 +177,5 @@ HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 
 HAYSTACK_SEARCH_RESULTS_PER_PAGE = 4 # 指定搜索结果每页的条数
 
-
+# 收集静态文件
+STATIC_ROOT='/root/Zwl/BookStore/collect_static'
