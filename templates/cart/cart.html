@@ -1,0 +1,324 @@
+{% extends 'Base.html' %}
+{% load staticfiles %}
+{% block title %}尚硅谷书城-购物车{% endblock title %}
+{% block search_bar %}{% endblock search_bar %}
+{% block cart_count %}{% endblock cart_count %}
+{% block topfiles %}
+    <script>
+    $(function () {
+        // 调用两个方法以便显示相应位置的数据
+        update_cart_count();
+        update_total_price();
+
+        // TODO 计算所有被选中商品的总价-->总数目和商品总价格
+        function update_total_price() {
+
+            // 初始化总价\总数变量
+            total_count = 0;
+            total_price = 0;
+
+            // 获取所有被选中的商品所在的ul元素
+            $('.cart_list_td').find(':checked').parents('ul').each(function () {
+                // 计算商品的小计
+                // TODO 调用update_books_price返回一个字典对象形式的数据,每个商品的数量与价格小计
+                res_dict = update_books_price($(this));
+
+                // 将每个商品的数量与价格相加 --> TODO 得到总价与总计
+                total_count += res_dict.books_count;
+                total_price += res_dict.books_amount
+            });
+
+            // 设置商品的总价和总数目-->TODO 将总价与总计写入相应位置进行展示
+            $('.settlements').find('em').text(total_price.toFixed(2));
+            $('.settlements').find('b').text(total_count)
+        }
+
+        // 计算商品的小计--> TODO 每个商品的价格小计与数量小计
+        function update_books_price(books_ul) {
+                // 获取每一个商品的价格和数量
+                books_price = books_ul.children('.col05').text();
+                books_count = books_ul.find('.num_show').val();
+
+                // 处理获取到的价格与数量的数据
+                books_price = parseFloat(books_price);
+                books_count = parseInt(books_count);
+                // 商品的小计 数量*价格
+                books_amount = books_price * books_count;
+
+                // 设置商品的小计-->写入相应的位置
+                books_ul.children('.col07').text(books_amount.toFixed(2) + '元')
+
+                // 返回字典对象形式的商品数量与商品价格小计
+                return {
+                    'books_count': books_count,
+                    'books_amount': books_amount
+                }
+        }
+
+
+        // 更新页面上购物车商品的总数
+        function update_cart_count() {
+            // ajax发起get请求
+            $.get('/cart/count/', function (data) {
+                // 写入相应位置
+                $('.total_count').children('em').text(data.res)
+            })
+        }
+
+        // 购物车商品信息的删除-->TODO 删除按钮加入click点击事件
+        $('.cart_list_td').children('.col08').children('a').click(function () {
+            //获取ｕｌ节点
+            books_ul = $(this).parents('ul');
+            //获取这个节点下书的ｉｄ　　　　
+            books_id = books_ul.find('.num_show').attr('books_id');
+            csrf = $('input[name="csrfmiddlewaretoken"]').val();
+            params = {
+                "books_id": books_id,
+                "csrfmiddlewaretoken": csrf
+            };
+
+            // 发起ajax请求，访问/cart/del/
+            $.post('/cart/del/', params, function (data) {
+                // 删除成功
+                if (data.res == 3){
+                    // 移除商品对应的ul元素
+                    books_ul.remove(); // books.empty()
+
+                    // 判断商品对应的checkbox是否选中,选中显示总价格
+                    is_checked = books_ul.find(':checkbox').prop('checked');
+                    if (is_checked){
+                        update_total_price()
+                    }
+                    // 删除后－－＞更新页面购物车商品总数
+                    update_cart_count()
+                }
+            })
+        });
+
+          // 全选和全不选-->TODO 全选与反选状态下的价格总计与数量总计逻辑处理
+        $('.settlements').find(':checkbox').change(function () {
+            // 获取全选checkbox的选中状态-->true or false
+            is_checked = $(this).prop('checked')
+
+            // 遍历所有商品对应的checkbox,设置checked属性和全选checkbox一致
+            $('.cart_list_td').find(':checkbox').each(function () {
+                // 将is_check的状态值赋值给checked
+                $(this).prop('checked', is_checked)
+            })
+
+            // 更新商品的信息--> TODO 根据复选框的状态更新总价格和总数量
+            update_total_price()
+        });
+
+        // TODO 根据商品对应的checkbox状态发生改变，全选checkbox的改变
+        $('.cart_list_td').find(':checkbox').change(function () {
+            // 获取所有商品对应的checkbox的数目
+            all_len = $('.cart_list_td').find(':checkbox').length;
+            // 获取所有被选中商品的checkbox的数目
+            checked_len  = $('.cart_list_td').find(':checked').length;
+
+            // 对比连个长度,来改变全选狂的状态
+            if (checked_len < all_len){
+                $('.settlements').find(':checkbox').prop('checked', false)
+            }
+            else {
+                 $('.settlements').find(':checkbox').prop('checked', true)
+            }
+
+            // 更新商品的总价格的信息
+            update_total_price()
+        })
+
+        // 购物车商品数目的增加--> TODO 点击 + 的逻辑操作
+        $('.add').click(function () {
+            // 获取商品的数目和商品的id--> TODO this为当前DOM节点
+            books_count = $(this).next().val();  //获取下一个表单元素的value值,书的数量
+            books_id = $(this).next().attr('books_id'); //获取下一个元素的属性为books_id的值,书的id
+
+            // 更新购物车信息-->处理书的数量的值 加一
+            books_count = parseInt(books_count) + 1;
+
+            // 调用方法,与后台交互后,更改error_update的状态值
+            update_remote_cart_info(books_id, books_count);
+
+            // 根据更新的结果进行操作
+            if (error_update == false){
+
+                // 更新成功,重新设置数量的值
+                $(this).next().val(books_count)
+
+                // 获取商品对应的checkbox的选中状态-->true or false
+                is_checked = $(this).parents('ul').find(':checkbox').prop('checked');
+                // 如果选中则更新,总价格与总数量
+                if (is_checked){
+                    // 更新商品的总数目，总价格和小计
+                    update_total_price()
+                }
+                else{ // 未选中,只更新该商品的价格小计
+                    // 更新商品的小计
+                    update_books_price($(this).parents('ul'))
+                }
+                // 更新页面购物车商品总数
+                update_cart_count()
+            }
+        })
+
+        // 购物车商品数目的减少--> TODO 点击 - 的逻辑操作
+        $('.minus').click(function () {
+            // 获取商品的数目和商品的id
+            books_count = $(this).prev().val()
+            books_id = $(this).prev().attr('books_id')
+
+            // 更新购物车信息
+            books_count = parseInt(books_count) - 1
+            if (books_count <= 0){
+                books_count = 1
+
+            }
+
+            update_remote_cart_info(books_id, books_count)
+
+            // 根据更新的结果进行操作
+            if (error_update == false){
+                // 更新成功
+                $(this).prev().val(books_count)
+                // 获取商品对应的checkbox的选中状态
+                is_checked = $(this).parents('ul').find(':checkbox').prop('checked')
+                if (is_checked){
+                    // 更新商品的总数目，总价格和小计
+                    update_total_price()
+                }
+                else{
+                    // 更新商品的小计
+                    update_books_price($(this).parents('ul'))
+                }
+                // 更新页面购物车商品总数
+                update_cart_count()
+            }
+        })
+
+        // TODO 记录当输入数量狂获取焦点时候的数值
+        pre_books_count = 0
+        $('.num_show').focus(function () {
+            pre_books_count = $(this).val()
+        })
+
+         // 购物车商品数目的手动输入--> TODO 手动输入的逻辑操作
+        $('.num_show').blur(function () {
+            // 获取商品的数目和商品的id
+            books_count = $(this).val()
+            books_id = $(this).attr('books_id')
+
+            // 校验用户输入的商品数目
+            if (isNaN(books_count) || books_count.trim().length == 0 || parseInt(books_count)<=0){
+                // 设置回输入之前记录的值
+                $(this).val(pre_books_count)
+                return
+            }
+
+            // 处理手动输入的数据 ,并调用与后台交互的方法进行更新购物车信息
+            books_count = parseInt(books_count)
+            update_remote_cart_info(books_id, books_count)
+
+            // 根据更新的结果进行操作
+            if (error_update == false){
+                // 更新成功
+                $(this).val(books_count)
+                // 获取商品对应的checkbox的选中状态
+                is_checked = $(this).parents('ul').find(':checkbox').prop('checked')
+                if (is_checked){
+                    // 更新商品的总数目，总价格和小计
+                    update_total_price()
+                }
+                else{
+                    // 更新商品的小计
+                    update_books_price($(this).parents('ul'))
+                }
+                // 更新页面购物车商品总数
+                update_cart_count()
+            }
+            else{
+                // 设置回输入之前的值
+                $(this).val(pre_books_count)
+            }
+        });
+
+        // TODO 与后台交互,更新redis中购物车商品数目
+        // 初始化变量表示 更新失败的状态
+        error_update = false;
+        // 定义一个方法,通过ajax与后台交互
+        function update_remote_cart_info(books_id, books_count) {
+            csrf = $('input[name="csrfmiddlewaretoken"]').val();
+            params = {
+                'books_id': books_id,
+                'books_count': books_count,
+                'csrfmiddlewaretoken': csrf
+            }
+            // 设置同步--> TODO 与redis数据库设置同步更新,防止数据造成混乱
+            $.ajaxSettings.async = false;
+            // 发起请求，访问/cart/update/
+            $.post('/cart/update/', params, function (data) {
+                if (data.res == 5){
+                    // alert('更新成功')
+                    error_update = false
+                }
+                else {
+                    error_update = true
+                    alert(data.errmsg)
+                }
+            })
+            // 设置异步
+            $.ajaxSettings.async = true
+        }
+    })
+    </script>
+{% endblock topfiles %}
+{% block body %}
+    <div class="search_bar clearfix">
+        {% csrf_token %}
+		<a href="{% url 'books:index' %}" class="logo fl"><img src="{% static 'images/logo.png' %}" style="width: 160px; height: 53px;"></a>
+		<div class="sub_page_name fl">|&nbsp;&nbsp;&nbsp;&nbsp;购物车</div>
+		<div class="search_con fr">
+			<input type="text" class="input_text fl" name="" placeholder="搜索商品">
+			<input type="button" class="input_btn fr" name="" value="搜索">
+		</div>
+	</div>
+
+	<div class="total_count">全部商品<em> </em>件</div>
+	<ul class="cart_list_th clearfix">
+		<li class="col01">商品名称</li>
+		<li class="col02">商品单位</li>
+		<li class="col03">商品价格</li>
+		<li class="col04">数量</li>
+		<li class="col05">小计</li>
+		<li class="col06">操作</li>
+	</ul>
+    <form action="{% url 'order:place' %}" method="post">
+    {% for book in books_li %}
+	<ul class="cart_list_td clearfix">
+		<li class="col01"><input type="checkbox" name="books_ids" value="{{ book.id }}" checked></li>
+		<li class="col02"><img src="{% static book.image %}"></li>
+		<li class="col03">{{ book.name }}<br><em>{{ book.price }}元/{{ book.unit }}</em></li>
+		<li class="col04">{{ book.unit }}</li>
+		<li class="col05">{{ book.price }}元</li>
+		<li class="col06">
+			<div class="num_add">
+				<a href="javascript:;" class="add fl">+</a>
+				<input type="text" books_id = {{ book.id }} class="num_show fl" value="{{ book.count }}">
+				<a href="javascript:;" class="minus fl">-</a>
+			</div>
+		</li>
+		<li class="col07">{{ book.amount }}元</li>
+		<li class="col08"><a href="javascript:;">删除</a></li>
+	</ul>
+    {% endfor %}
+	<ul class="settlements">
+        {% csrf_token %}
+		<li class="col01"><input type="checkbox" name="" checked=""></li>
+		<li class="col02">全选</li>
+		<li class="col03">合计(不含运费)：<span>¥</span><em> 0元</em><br>共计<b>0 </b>件商品</li>
+		<li class="col04"><a><input type="submit" value="去结算"></a></li>
+	</ul>
+    </form>
+
+{% endblock body %}

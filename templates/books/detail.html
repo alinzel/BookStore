@@ -1,0 +1,329 @@
+{% extends 'Base.html' %}
+{% load staticfiles %}
+{% block title %}尚硅谷书城-商品详情{% endblock title %}
+{% block topfiles%}
+    <script>
+        $(function () {
+            update_total_price();  //TODO 先计算一下总价
+
+            // 计算总价的方法
+            function update_total_price() {
+                //获取商品的价格和数量
+                books_price = $('.show_pirze').children('em').text();
+                books_count = $('.num_show').val();
+
+                // 计算商品的总价
+                books_price = parseFloat(books_price);
+                books_count = parseInt(books_count);
+                total_price = books_price * books_count
+
+                //设置商品总价
+                $('.total').children('em').text(total_price.toFixed(2) + '元')  // toFixed(参数)-->将数字转化为字符串,参数为小数多少位
+            }
+
+            // 商品增加
+            $('.add').click(function () {
+                // 获取商品的数量
+                books_count = $('.num_show').val();
+                //加1
+                books_count = parseInt(books_count) + 1;
+                 // 重新设置值
+                $('.num_show').val(books_count);
+                // 计算总价
+                update_total_price()
+            })
+
+            // 商品减少
+            $('.minus').click(function () {
+                // 获取商品的数量
+                books_count = $('.num_show').val();
+                // 减1
+                books_count = parseInt(books_count) - 1
+                if (books_count == 0){
+                    books_count = 1
+                }
+                // 重新复制
+                $('.num_show').val(books_count)
+                // 计算总价
+                update_total_price()
+            })
+
+            // 手动输入-->blur失去焦点的事件
+            $('.num_show').blur(function () {
+                // 获取商品的数量
+                book_count = $(this).val()
+                // 数据校验
+                if(isNaN(book_count) || book_count.trim().length ==0 || parseInt(book_count) <= 0){
+                    book_count = 1
+                }
+
+                // 重新设置值
+                $('.num_show').val(parseInt(book_count))
+                //计算总价
+                update_total_price()
+            })
+    })
+    </script>
+{% endblock topfiles %}
+{% block body  %}
+    <div class="navbar_con">
+		<div class="navbar clearfix">
+			<div class="subnav_con fl">
+				<h1>全部商品分类</h1>
+				<span></span>
+				<ul class="subnav">
+					<li><a href="#" class="python">Python</a></li>
+					<li><a href="#" class="javascript">Javascript</a></li>
+					<li><a href="#" class="algorithms">数据结构与算法</a></li>
+					<li><a href="#" class="machinelearning">机器学习</a></li>
+					<li><a href="#" class="operatingsystem">操作系统</a></li>
+					<li><a href="#" class="database">数据库</a></li>
+				</ul>
+			</div>
+			<ul class="navlist fl">
+				<li><a href="{% url 'books:index' %}">首页</a></li>
+				<li class="interval">|</li>
+				<li><a href="">移动端书城</a></li>
+				<li class="interval">|</li>
+				<li><a href="">秒杀</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="breadcrumb">
+		<a href="#">全部分类</a>
+		<span>></span>
+		<a href="#">Python</a>
+		<span>></span>
+		<a href="#">商品详情</a>
+	</div>
+
+	<div class="book_detail_con clearfix">
+		<div class="book_detail_pic fl"><img src={% static books.image %}></div>
+
+		<div class="book_detail_list fr">
+			<h3>{{ books.name }}</h3>
+			<p>{{ books.desc }}</p>
+			<div class="prize_bar">
+				<span class="show_pirze">¥<em>{{ books.price }}</em></span>
+				<span class="show_unit">单  位：{{ books.unit}}</span>
+			</div>
+			<div class="book_num clearfix">
+				<div class="num_name fl">数 量：</div>
+				<div class="num_add fl">
+					<input type="text" class="num_show fl" value="1">
+					<a href="javascript:;" class="add fr">+</a>
+					<a href="javascript:;" class="minus fr">-</a>
+				</div>
+			</div>
+			<div class="total">总价：<em>100元</em></div>
+			<div class="operate_btn">
+                {% csrf_token %}
+				<a href="javascript:;" class="buy_btn">立即购买</a>
+				<a href="javascript:;" books_id='{{ books.id }}'class="add_cart" id="add_cart">加入购物车</a>
+                <a href="#comment_input";" id="write_comment" class="comment">我要写评论</a>
+			</div>
+            <div name="comment_input" style="display: None;" id="comment_input" data-bookid="{{ books.id }}" data-userid="{{ request.session.passport_id }}" >
+                <div>
+                    <input type="text" placeholder="评论内容">
+                </div>
+                <div id="submit_comment">
+                    <button> 提交评论 </button>
+                </div>
+            </div>
+		</div>
+	</div>
+
+	<div class="main_wrap clearfix">
+		<div class="l_wrap fl clearfix">
+			<div class="new_book">
+				<h3>新品推荐</h3>
+				<ul>
+                    {% for book in books_li %}
+                        <li>
+						<a href="#"><img src="{% static book.image %}"></a>
+						<h4><a href="#">{{ book.name }}</a></h4>
+						<div class="prize">￥{{ book.price }}</div>
+					    </li>
+                    {% endfor %}
+				</ul>
+			</div>
+		</div>
+
+		<div class="r_wrap fr clearfix">
+			<ul class="detail_tab clearfix">
+				<li class="active" id="detail">商品介绍</li>
+				<li id="comment">评论</li>
+			</ul>
+
+			<div class="tab_content">
+				<dl id="book_detail">
+					<dt>商品详情：</dt>
+{#                    TODO | safe关闭转义,显示HTML执行后的结果#}
+					<dd> {{ books.detail | safe}} </dd>
+				</dl>
+                <dl id="book_comment">
+				</dl>
+			</div>
+		</div>
+	</div>
+    <div class="add_jump"></div>
+{% endblock body %}
+{% block bottomfiles %}
+    <script type="text/javascript">
+	    var $add_x = $('#add_cart').offset().top;
+	    var $add_y = $('#add_cart').offset().left;
+
+	    var $to_x = $('#show_count').offset().top;
+	    var $to_y = $('#show_count').offset().left;
+
+{#      TODO 给加入购物车添加点击事件,并完成ajax请求与添加到数据库#}
+	    $('#add_cart').click(function () {
+
+            // 获取商品id和商品数量-->TODO 往数据库里要添加的东西,会传给视图
+            books_id = $(this).attr('books_id')
+            console.log(books_id)
+            books_count = $('.num_show').val()
+            console.log(books_count)
+            csrf = $('input[name="csrfmiddlewaretoken"]').val()
+
+            // TODO 发起请求,访问/cart/add/,进行购物车数据的添加
+            // 发送的参数
+            params = {
+                'books_id' : books_id,  //书的id
+                'books_count' : books_count,  // 数量
+                'csrfmiddlewaretoken' : csrf
+            };
+            // ajax请求
+            $.ajax({
+                url : '/cart/add/',
+                type : 'post',
+                data : params,
+                success : function (data) {
+{#            $.post('/cart/add/', params, function (data) {#}
+                    // 如果返回的结果为5,说明添加成功,进行逻辑处理
+                    if (data.res == 5){
+                    // 添加成功
+                        $(".add_jump").css({'left':$add_y+80,'top':$add_x+10,'display':'block'});
+                        $(".add_jump").stop().animate({
+                            'left' : $to_y +7,
+                            'top' : $to_x +7},
+                            'fast', function () {
+                                $('.add_jump').fadeOut('fast', function () {
+                                    // 获取原有show_count的值
+                                    count = $("#show_count").html();
+                                    count = parseInt(count) + parseInt(books_count);
+                                    // 将处理后的结果显示在购物车处
+                                    $("#show_count").html(count);
+                                });
+                            });
+                    } else{
+                       // 添加失败
+                        alert(data.errmsg)
+                    }
+             }
+        })
+    })
+
+    //TODO 获取评论,发送ajax请求
+    $.ajax({
+        // $('#comment_input').data('bookid') --> 4 TODO 获取存放在元素上的数据
+        'url':'/comment/comment/'+ $('#comment_input').data('bookid'),
+        success:function (res) {
+            // 评论成功写入相应位置
+            if(res.code === 200){
+                // TODO res.data ,从后太获取到的为字典形式的评论,用户的集合
+                var data = res.data;
+                var div_head = '<div>';
+                var div_tail = '</div>'
+                var dom_element = ''
+                // TODO 遍历得到的评论,并拼成HTML代码
+                for(i = 0; i<data.length;i++){
+                    var head = '<div>';
+                    var tail = '</div>'
+                    var temp = head + '<b>' + data[i].user_id + '</b>' + '<br>' + '<span>' + data[i].content + '</span>' + tail;
+                    dom_element += temp;
+                }
+                dom_element =  div_head + dom_element +div_tail
+                // 将拼接的HTML代码,添加到#book_comment对应的标签上
+                $('#book_comment').append(dom_element)
+            }
+        }
+    });
+
+	// TODO 给商品介绍添加点击事件 TAB切换
+    $('#detail').click(function () {
+        // TODO 添加active属性,隐藏并显示相应TAB
+        $(this).addClass('active');
+        $('#comment').removeClass('active');
+        $('#book_comment').hide();
+        $('#book_detail').show();
+    });
+
+    // TODO 给评论添加点击事件,进行TAB切换
+    $('#comment').click(function () {
+        // 显示隐藏相应内容
+        $(this).addClass('active');
+        $('#detail').removeClass('active');
+        $('#book_comment').show();
+        $('#book_detail').hide();
+    })
+
+    // TODO 给我要写评论添加点击事件
+    $('#write_comment').click(function () {
+        // 显示对应标签
+        $('#comment_input').show();
+    })
+
+    // TODO 给提交按钮添加点击事件,并与后台交互
+    $('#submit_comment').click(function () {
+        // 获取一系列数据,与后台交互
+        var book_id = $('#comment_input').data('bookid');
+        var user_id = $('#comment_input').data('userid');
+        var content = $('#comment_input :input').val();
+        //准备参数
+        var data = {
+            book_id: book_id,
+            user_id: user_id,
+            content: content,
+        }
+        // 发送ajax请求
+        $.ajax({
+            type: 'POST',
+            url: '/comment/comment/' + book_id + '/',
+            data: JSON.stringify(data), // 转成json字符串
+            success: function (res) {
+                // 数据库添加成功,隐藏输入狂
+                if (res.code === 200) {
+                    // console.log('res: ', res)
+                    // 跳到上一页
+                    setTimeout("history.go(-1)",1000)
+                    $('#comment_input').hide();
+                }
+            }
+        })
+    })
+
+	</script>
+
+     <style>
+        .comment {
+            background-color: #c40000;
+            color: #fff;
+            margin-left: 10px;
+            position: relative;
+            z-index: 10;
+            display: inline-block;
+            width: 178px;
+            height: 38px;
+            border: 1px solid #c40000;
+            font-size: 14px;
+            line-height: 38px;
+            text-align: center;
+        }
+{#        TODO 默认隐藏ajax请求的评论内容#}
+        #book_comment{
+            display: None;
+        }
+    </style>
+{% endblock bottomfiles %}

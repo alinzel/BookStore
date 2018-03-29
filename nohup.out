@@ -1,0 +1,66 @@
+[2018-01-30 12:01:21 +0800] [4076] [INFO] Starting gunicorn 19.7.1
+[2018-01-30 12:01:21 +0800] [4076] [INFO] Listening at: http://127.0.0.1:8080 (4076)
+[2018-01-30 12:01:21 +0800] [4076] [INFO] Using worker: sync
+[2018-01-30 12:01:21 +0800] [4079] [INFO] Booting worker with pid: 4079
+[2018-01-30 12:01:22 +0800] [4081] [INFO] Booting worker with pid: 4081
+[2018-01-30 12:01:22 +0800] [4082] [INFO] Booting worker with pid: 4082
+[2018-01-30 12:01:45 +0800] [4193] [INFO] Starting gunicorn 19.7.1
+[2018-01-30 12:01:45 +0800] [4193] [INFO] Listening at: http://127.0.0.1:8080 (4193)
+[2018-01-30 12:01:45 +0800] [4193] [INFO] Using worker: sync
+[2018-01-30 12:01:45 +0800] [4196] [INFO] Booting worker with pid: 4196
+[2018-01-30 12:01:45 +0800] [4197] [INFO] Booting worker with pid: 4197
+[2018-01-30 12:01:46 +0800] [4199] [INFO] Booting worker with pid: 4199
+[2018-01-30 12:02:49 +0800] [4493] [INFO] Starting gunicorn 19.7.1
+[2018-01-30 12:02:49 +0800] [4493] [INFO] Listening at: http://127.0.0.1:8080 (4493)
+[2018-01-30 12:02:49 +0800] [4493] [INFO] Using worker: sync
+[2018-01-30 12:02:49 +0800] [4498] [INFO] Booting worker with pid: 4498
+[2018-01-30 12:02:49 +0800] [4499] [INFO] Booting worker with pid: 4499
+[2018-01-30 12:02:49 +0800] [4501] [INFO] Booting worker with pid: 4501
+[2018-01-30 05:56:59 +0000] [4082] [INFO] Parent changed, shutting down: <Worker 4082>
+[2018-01-30 05:56:59 +0000] [4081] [INFO] Parent changed, shutting down: <Worker 4081>
+[2018-01-30 05:56:59 +0000] [4082] [INFO] Worker exiting (pid: 4082)
+[2018-01-30 05:56:59 +0000] [4081] [INFO] Worker exiting (pid: 4081)
+[2018-01-30 05:56:59 +0000] [4079] [INFO] Parent changed, shutting down: <Worker 4079>
+[2018-01-30 05:56:59 +0000] [4079] [INFO] Worker exiting (pid: 4079)
+[2018-01-30 14:03:31 +0800] [37556] [INFO] Starting gunicorn 19.7.1
+[2018-01-30 14:03:31 +0800] [37556] [INFO] Listening at: http://127.0.0.1:8080 (37556)
+[2018-01-30 14:03:31 +0800] [37556] [INFO] Using worker: sync
+[2018-01-30 14:03:31 +0800] [37559] [INFO] Booting worker with pid: 37559
+[2018-01-30 14:03:31 +0800] [37560] [INFO] Booting worker with pid: 37560
+[2018-01-30 14:03:31 +0800] [37561] [INFO] Booting worker with pid: 37561
+[2018-01-30 06:52:59 +0000] [4196] [INFO] Parent changed, shutting down: <Worker 4196>
+[2018-01-30 06:52:59 +0000] [4196] [INFO] Worker exiting (pid: 4196)
+[2018-01-30 06:52:59 +0000] [4199] [INFO] Parent changed, shutting down: <Worker 4199>
+[2018-01-30 06:52:59 +0000] [4199] [INFO] Worker exiting (pid: 4199)
+[2018-01-30 06:52:59 +0000] [4197] [INFO] Parent changed, shutting down: <Worker 4197>
+[2018-01-30 06:52:59 +0000] [4197] [INFO] Worker exiting (pid: 4197)
+张
+张
+[2018-01-30 14:53:04 +0800] [51762] [INFO] Booting worker with pid: 51762
+[2018-01-30 06:53:30 +0000] [4499] [INFO] Parent changed, shutting down: <Worker 4499>
+[2018-01-30 06:53:31 +0000] [4499] [INFO] Worker exiting (pid: 4499)
+3
+2018013006073311
+添加订单信息表成功
+b'1'
+111
+添加商品信息表
+[2018-01-30 06:53:31 +0000] [4501] [INFO] Parent changed, shutting down: <Worker 4501>
+[2018-01-30 06:53:31 +0000] [4501] [INFO] Worker exiting (pid: 4501)
+[2018-01-30 06:53:36 +0000] [51762] [INFO] Parent changed, shutting down: <Worker 51762>
+[2018-01-30 06:53:36 +0000] [51762] [INFO] Worker exiting (pid: 51762)
+[2018-01-30 06:53:42 +0000] [37561] [INFO] Parent changed, shutting down: <Worker 37561>
+[2018-01-30 06:53:42 +0000] [37561] [INFO] Worker exiting (pid: 37561)
+cart_11
+张
+[2018-01-30 06:53:42 +0000] [37560] [INFO] Parent changed, shutting down: <Worker 37560>
+[2018-01-30 06:53:42 +0000] [37560] [INFO] Worker exiting (pid: 37560)
+张
+cart_11
+['5']
+5
+[2018-01-30 06:53:44 +0000] [37559] [INFO] Parent changed, shutting down: <Worker 37559>
+[2018-01-30 06:53:44 +0000] [37559] [INFO] Worker exiting (pid: 37559)
+['3']
+3
+张
